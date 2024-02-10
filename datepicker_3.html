@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Picker Example</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form id="homeBookForm">
+            <!-- Check-in Date -->
+            <div class="inner-addon right-addon">
+                <i class="fa fa-calendar" aria-hidden="true" id="checkInIcon"></i>
+                <input type="text" class="form-control checkIn" placeholder="Check-In">
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="inner-addon right-addon">
+                <i class="fa fa-calendar" aria-hidden="true" id="checkOutIcon"></i>
+                <input type="text" class="form-control checkOut" placeholder="Check-Out">
+            </div>
+
+            <button>Book Now</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Initialize Datepickers -->
+    <script type="text/javascript">
+        $(function () {
+            var currentDate = new Date();
+            var defaultCheckInDate = new Date(currentDate);
+            defaultCheckInDate.setDate(currentDate.getDate() + 2);
+
+            $('.checkIn').datepicker({
+                format: 'dd-mm-yyyy',
+                todayBtn: true,
+                autoclose: true,
+                startDate: currentDate
+            }).on('changeDate', function (e) {
+                var checkInDate = e.date;
+                var checkOutDate = new Date(checkInDate);
+                checkOutDate.setDate(checkInDate.getDate() + 2);
+                $('.checkOut').datepicker('setStartDate', checkOutDate);
+                $('.checkOut').datepicker('setDate', checkOutDate).focus();
+            });
+
+            $('.checkOut').datepicker({
+                format: 'dd-mm-yyyy',
+                todayBtn: true,
+                autoclose: true
+            });
+        });
+    </script>
+</body>
+</html>
